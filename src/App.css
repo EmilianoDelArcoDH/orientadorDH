@@ -492,3 +492,14 @@ body {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--card-border, rgba(255, 255, 255, 0.12));
 }
+/* Selects (fix contraste en dark UI) */
+select.input {
+  color: var(--text-main);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Opciones del dropdown */
+select.input option {
+  color: #000;              /* texto negro */
+  background-color: #fff;   /* fondo blanco */
+}
