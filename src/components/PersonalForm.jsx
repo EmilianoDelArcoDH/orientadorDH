@@ -1,6 +1,7 @@
 // src/components/PersonalForm.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toggleChipValue, hasChip } from "../utils/chips";
+import { startOrientationTour } from "../utils/orientationTour";
 
 const INTEREST_CHIPS = [
   "Analizar datos",
@@ -33,6 +34,13 @@ export default function PersonalForm({ onSubmit }) {
     tiempo: "",
   });
 
+  useEffect(() => {
+  const seen = localStorage.getItem("orientationTourSeen-personal");
+  if (!seen) {
+    startOrientationTour("personal");
+  }
+}, []);
+
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -55,6 +63,7 @@ export default function PersonalForm({ onSubmit }) {
         <label className="label">
           Edad / situación actual
           <input
+            id="field-edad"
             className="input"
             name="edad"
             value={form.edad}
@@ -67,6 +76,7 @@ export default function PersonalForm({ onSubmit }) {
         <label className="label">
           Experiencia previa
           <textarea
+            id="field-experiencia"
             className="textarea"
             name="experiencia"
             value={form.experiencia}
@@ -91,6 +101,7 @@ export default function PersonalForm({ onSubmit }) {
             ))}
           </div>
           <textarea
+            id="field-intereses"
             className="textarea"
             name="intereses"
             value={form.intereses}
@@ -115,6 +126,7 @@ export default function PersonalForm({ onSubmit }) {
             ))}
           </div>
           <textarea
+            id="field-objetivos"
             className="textarea"
             name="objetivos"
             value={form.objetivos}
@@ -139,6 +151,7 @@ export default function PersonalForm({ onSubmit }) {
             ))}
           </div>
           <textarea
+            id="field-tiempo"
             className="textarea"
             name="tiempo"
             value={form.tiempo}

@@ -597,3 +597,105 @@ select.input option {
     font-size: 13px;
     opacity: 0.75;
 }
+
+/* =========================
+   DRIVER.JS – OVERRIDES
+========================= */
+
+/* Fondo del popover */
+.driver-popover {
+    background: var(--bg-card, #ffffff);
+    color: var(--text-primary, #1f2937);
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    padding: 16px 18px;
+    font-family: inherit;
+    max-width: 360px;
+}
+
+/* Flechita */
+.driver-popover-arrow {
+    color: var(--bg-card, #ffffff);
+}
+
+/* Título */
+.driver-popover-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary, #111827);
+}
+
+/* Texto */
+.driver-popover-description {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text-secondary, #4b5563);
+}
+
+/* Footer */
+.driver-popover-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Progreso */
+.driver-popover-progress-text {
+    font-size: 12px;
+    color: var(--text-muted, #6b7280);
+}
+
+
+/* Botones */
+.driver-popover-footer button {
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+
+/* Botón principal (Siguiente / Finalizar) */
+.driver-popover-footer .driver-next-btn {
+    background: var(--primary, #2563eb);
+    color: white;
+}
+
+.driver-popover-footer .driver-next-btn:hover {
+    background: var(--primary-hover, #1d4ed8);
+}
+
+/* Botón secundario (Anterior) */
+.driver-popover-footer .driver-prev-btn {
+    background: transparent;
+    color: var(--text-secondary, #374151);
+}
+
+/* Botón cerrar (X) */
+.driver-popover-close-btn {
+    color: var(--text-muted, #6b7280);
+    font-size: 18px;
+}
+
+.driver-popover-close-btn:hover {
+    color: var(--text-primary, #111827);
+}
+
+/* Elemento resaltado */
+.driver-highlighted-element {
+    border-radius: 8px;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.35);
+    transition: box-shadow 0.2s ease;
+}
+
+/* Overlay oscuro */
+.driver-overlay {
+    background: rgba(15, 23, 42, 0.55);
+}
+
+.driver-popover {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
