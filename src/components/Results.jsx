@@ -1,4 +1,42 @@
+// src/components/Results.jsx
 import React from "react";
+
+function getCTAForArea(area) {
+  const a = area.toLowerCase();
+
+  if (a.includes("front") || a.includes("back") || a.includes("stack")) {
+    return {
+      label: "Ver ruta sugerida",
+      action: "route",
+    };
+  }
+
+  if (a.includes("datos") || a.includes("data")) {
+    return {
+      label: "Ver plan de aprendizaje en datos",
+      action: "data",
+    };
+  }
+
+  if (a.includes("producto")) {
+    return {
+      label: "Ver roadmap de producto",
+      action: "product",
+    };
+  }
+
+  if (a.includes("ia") || a.includes("inteligencia")) {
+    return {
+      label: "Ver casos aplicados de IA",
+      action: "ai",
+    };
+  }
+
+  return {
+    label: "Ver más información",
+    action: "generic",
+  };
+}
 
 export default function Results({ result }) {
   const isPersonal = result?.tipo === "personal";
@@ -9,8 +47,13 @@ export default function Results({ result }) {
         {isPersonal ? "Tus resultados" : "Diagnóstico para tu empresa"}
       </h2>
 
-      {result?.mensaje && (
-        <p className="resultIntro">{result.mensaje}</p>
+      {result?.mensaje && <p className="resultIntro">{result.mensaje}</p>}
+
+      {result?.areas?.length > 1 && (
+        <p className="resultHint">
+          Empezá por la recomendación principal. Las demás son alternativas
+          posibles.
+        </p>
       )}
 
       {(!result?.areas || result.areas.length === 0) && (
@@ -22,17 +65,23 @@ export default function Results({ result }) {
 
       <div className="areaGrid">
         {result?.areas?.map((a) => (
-          <article key={a.area} className="areaCard">
+          <article
+            key={a.area}
+            className={`areaCard ${a.isPrimary ? "areaCard--primary" : ""}`}
+          >
             <div className="areaHeader">
-              <h3 className="areaName">{a.area}</h3>
+              <h3 className="areaName">
+                {a.area}
+                {a.isPrimary && (
+                  <span className="primaryBadge">Recomendación principal</span>
+                )}
+              </h3>
+
               <span className="badge">{a.score}% match</span>
             </div>
 
             <div className="matchBar">
-              <div
-                className="matchFill"
-                style={{ width: `${a.score}%` }}
-              />
+              <div className="matchFill" style={{ width: `${a.score}%` }} />
             </div>
 
             {/* --- TOP 5 UI / INSIGHTS (opcional) --- */}
@@ -69,7 +118,8 @@ export default function Results({ result }) {
                         <div className="insightTitle">Objetivo sugerido</div>
                         <div className="insightText">{a.insight.goal}</div>
                         <div className="insightText muted">
-                          Esto te sirve como norte para armar un plan de capacitación.
+                          Esto te sirve como norte para armar un plan de
+                          capacitación.
                         </div>
                       </div>
                     )}
@@ -80,7 +130,9 @@ export default function Results({ result }) {
                 {Array.isArray(a.insight.why) && a.insight.why.length > 0 && (
                   <div className="whyBox">
                     <div className="whyTitle">
-                      {isPersonal ? "¿Por qué esta área?" : "¿Por qué recomendamos esto?"}
+                      {isPersonal
+                        ? "¿Por qué esta área?"
+                        : "¿Por qué recomendamos esto?"}
                     </div>
                     <ul className="whyList">
                       {a.insight.why.map((w, idx) => (
@@ -91,39 +143,63 @@ export default function Results({ result }) {
                 )}
 
                 {/* Ruta */}
-                {Array.isArray(a.insight.route) && a.insight.route.length > 0 && (
-                  <div className="insightCard insightCardWide">
-                    <div className="insightTitle">
-                      {isPersonal ? "Ruta sugerida" : "Ruta de capacitación sugerida"}
-                    </div>
+                {Array.isArray(a.insight.route) &&
+                  a.insight.route.length > 0 && (
+                    <div className="insightCard insightCardWide">
+                      <div className="insightTitle">
+                        {isPersonal
+                          ? "Ruta sugerida"
+                          : "Ruta de capacitación sugerida"}
+                      </div>
 
-                    <div className="route">
-                      {a.insight.route.map((step) => (
-                        <div className="routeStep" key={step.name}>
-                          <div className="routeStepName">{step.name}</div>
-                          <div className="routeStepText">{step.text}</div>
-                        </div>
-                      ))}
-                    </div>
+                      <div className="insightText muted">
+                        {isPersonal
+                          ? "Ruta pensada para avanzar paso a paso, sin abarcar de más."
+                          : "Ruta sugerida para generar impacto real en 8–12 semanas."}
+                      </div>
 
-                    <div className="insightText muted">
-                      {isPersonal
-                        ? "Tip: elegí 1 ruta principal y sostenela 8–12 semanas."
-                        : "Tip: dividí por roles (ej. analistas / líderes / tech) para acelerar impacto."}
+                      <div className="route">
+                        {a.insight.route.map((step) => (
+                          <div className="routeStep" key={step.name}>
+                            <div className="routeStepName">{step.name}</div>
+                            <div className="routeStepText">{step.text}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="insightText muted">
+                        {isPersonal
+                          ? "Tip: elegí 1 ruta principal y sostenela 8–12 semanas."
+                          : "Tip: dividí por roles (ej. analistas / líderes / tech) para acelerar impacto."}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {/* CTAs (opcionales) */}
                 <div className="ctaRow">
-                  <a
-                    className="ctaBtn"
-                    href="https://www.digitalhouse.com/ar"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Ver todas las opciones
-                  </a>
+                  {(() => {
+                    const cta = getCTAForArea(a.area);
+
+                    return (
+                      <button
+                        type="button"
+                        className={`ctaBtn ${
+                          a.isPrimary ? "ctaBtnPrimary" : "ctaBtnGhost"
+                        }`}
+                        onClick={() => {
+                          // por ahora solo scroll a la ruta (UX simple y efectiva)
+                          const el = document.querySelector(".route");
+                          if (el)
+                            el.scrollIntoView({
+                              behavior: "smooth",
+                              block: "start",
+                            });
+                        }}
+                      >
+                        {cta.label}
+                      </button>
+                    );
+                  })()}
 
                   <button
                     type="button"
@@ -136,6 +212,11 @@ export default function Results({ result }) {
                     Copiar resumen
                   </button>
                 </div>
+                {a.isPrimary && (
+                  <div className="primaryHint">
+                    Este es el mejor punto de partida según lo que contaste.
+                  </div>
+                )}
               </>
             )}
 
@@ -161,7 +242,9 @@ export default function Results({ result }) {
                 </ul>
               </>
             ) : (
-              <p className="noCourses">No hay cursos cargados para esta área todavía.</p>
+              <p className="noCourses">
+                No hay cursos cargados para esta área todavía.
+              </p>
             )}
           </article>
         ))}
@@ -169,7 +252,6 @@ export default function Results({ result }) {
     </section>
   );
 }
-
 
 function buildShareText(result, area) {
   const lines = [];
@@ -190,7 +272,9 @@ function buildShareText(result, area) {
 
   if (Array.isArray(area.cursos) && area.cursos.length) {
     lines.push("Cursos sugeridos:");
-    area.cursos.slice(0, 5).forEach((c) => lines.push(`- ${c.nombre} (${c.slug})`));
+    area.cursos
+      .slice(0, 5)
+      .forEach((c) => lines.push(`- ${c.nombre} (${c.slug})`));
   }
 
   return lines.join("\n");

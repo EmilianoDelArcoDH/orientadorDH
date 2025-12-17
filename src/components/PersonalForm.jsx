@@ -1,3 +1,4 @@
+// src/components/PersonalForm.jsx
 import { useState } from "react";
 import { toggleChipValue, hasChip } from "../utils/chips";
 
@@ -36,7 +37,7 @@ export default function PersonalForm({ onSubmit }) {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleChip = (field, value) => {
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
       [field]: toggleChipValue(prev[field], value),
     }));
@@ -51,7 +52,6 @@ export default function PersonalForm({ onSubmit }) {
       }}
     >
       <div className="formGrid">
-
         <label className="label">
           Edad / situación actual
           <input
@@ -79,7 +79,7 @@ export default function PersonalForm({ onSubmit }) {
         <label className="label">
           ¿Qué cosas te interesan?
           <div className="chipsRow">
-            {INTEREST_CHIPS.map(chip => (
+            {INTEREST_CHIPS.map((chip) => (
               <button
                 key={chip}
                 type="button"
@@ -103,7 +103,7 @@ export default function PersonalForm({ onSubmit }) {
         <label className="label">
           Objetivos
           <div className="chipsRow">
-            {OBJECTIVE_CHIPS.map(chip => (
+            {OBJECTIVE_CHIPS.map((chip) => (
               <button
                 key={chip}
                 type="button"
@@ -127,7 +127,7 @@ export default function PersonalForm({ onSubmit }) {
         <label className="label">
           Tiempo disponible
           <div className="chipsRow">
-            {TIME_CHIPS.map(chip => (
+            {TIME_CHIPS.map((chip) => (
               <button
                 key={chip}
                 type="button"
@@ -143,11 +143,10 @@ export default function PersonalForm({ onSubmit }) {
             name="tiempo"
             value={form.tiempo}
             onChange={handleChange}
-            placeholder="Podés escribir o usar las etiquetas" 
+            placeholder="Podés escribir o usar las etiquetas"
             required
           />
         </label>
-
       </div>
 
       <button className="button" type="submit">

@@ -1,3 +1,4 @@
+// src/components/CompanyForm.jsx
 import { useState } from "react";
 
 export default function CompanyForm({ onSubmit }) {
@@ -27,6 +28,7 @@ export default function CompanyForm({ onSubmit }) {
           <input
             className="input"
             name="industria"
+            value={empresa.industria}
             onChange={handle}
             placeholder="Ej: Tecnología, Salud, Educación"
             required
@@ -35,7 +37,14 @@ export default function CompanyForm({ onSubmit }) {
 
         <label className="label">
           Roles a capacitar
-          <input className="input" name="roles" onChange={handle} placeholder="Ej: Desarrollador, Diseñador, Marketer" required />
+          <input
+            className="input"
+            name="roles"
+            value={empresa.roles}
+            onChange={handle}
+            placeholder="Ej: Desarrollador, Diseñador, Marketer"
+            required
+          />
         </label>
 
         <label className="label">
@@ -43,6 +52,7 @@ export default function CompanyForm({ onSubmit }) {
           <textarea
             className="textarea"
             name="necesidad"
+            value={empresa.necesidad}
             onChange={handle}
             placeholder="Describe la necesidad principal"
             required
@@ -51,7 +61,7 @@ export default function CompanyForm({ onSubmit }) {
 
         <label className="label">
           Nivel del equipo
-          <select className="input" name="nivel" onChange={handle} required>
+          <select className="input" name="nivel" value={empresa.nivel} onChange={handle} required>
             <option value="">Seleccionar</option>
             <option value="bajo">Inicial</option>
             <option value="medio">Intermedio</option>
@@ -61,7 +71,7 @@ export default function CompanyForm({ onSubmit }) {
 
         <label className="label">
           Urgencia
-          <select className="input" name="urgencia" onChange={handle} required>
+          <select className="input" name="urgencia" value={empresa.urgencia} onChange={handle} required>
             <option value="">Seleccionar</option>
             <option value="1-3">1 – 3 meses</option>
             <option value="3-6">3 – 6 meses</option>
@@ -71,7 +81,14 @@ export default function CompanyForm({ onSubmit }) {
 
         <label className="label">
           Modalidad
-          <input className="input" name="modalidad" onChange={handle} placeholder="Ej: Presencial, Remoto, Híbrido" required />
+          <input
+            className="input"
+            name="modalidad"
+            value={empresa.modalidad}
+            onChange={handle}
+            placeholder="Ej: Presencial, Remoto, Híbrido"
+            required
+          />
         </label>
       </div>
 

@@ -279,6 +279,8 @@ body {
     }
 }
 
+
+
 .areaCard {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--card-border);
@@ -492,14 +494,106 @@ body {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--card-border, rgba(255, 255, 255, 0.12));
 }
+
 /* Selects (fix contraste en dark UI) */
 select.input {
-  color: var(--text-main);
-  background-color: rgba(255, 255, 255, 0.04);
+    color: var(--text-main);
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
 /* Opciones del dropdown */
 select.input option {
-  color: #000;              /* texto negro */
-  background-color: #fff;   /* fondo blanco */
+    color: #000;
+    /* texto negro */
+    background-color: #fff;
+    /* fondo blanco */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.areaGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    max-width: 100%;
+}
+
+.areaCard {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.insightCard,
+.whyBox,
+.route,
+.routeStep {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.route {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.followUp {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    background: rgba(255, 255, 255, .03);
+}
+
+.areaCard--primary {
+    border: 2px solid #7c3aed;
+    /* violeta DH */
+    box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.2),
+        0 12px 30px rgba(124, 58, 237, 0.15);
+    position: relative;
+}
+
+.primaryBadge {
+    margin-left: 10px;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+    background: #7c3aed;
+    color: white;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.resultHint {
+    font-size: 14px;
+    opacity: 0.75;
+    margin-bottom: 16px;
+}
+
+.ctaBtnPrimary {
+    background: #7c3aed;
+    color: white;
+    font-weight: 600;
+}
+
+.ctaBtnPrimary:hover {
+    background: #6d28d9;
+}
+
+.ctaBtnGhost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: inherit;
+}
+
+.primaryHint {
+    margin-top: 8px;
+    font-size: 13px;
+    opacity: 0.75;
 }
